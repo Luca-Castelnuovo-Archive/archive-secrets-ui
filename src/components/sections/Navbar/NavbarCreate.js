@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import useFetch from 'use-http';
-import StoreViewUI from 'components/ui/Store/StoreView';
+import { createStandaloneToast } from '@chakra-ui/react';
+import NavbarCreateUI from 'components/ui/Navbar/NavbarCreate';
 
-const StoreView = ({ isOpen, id }) => {
+const NavbarCreate = ({ isOpen, onToggle }) => {
+    const toast = createStandaloneToast();
     const [value, setValue] = useState('');
     const [isInvalid, setIsInvalid] = useState(false);
-    const [decryptedStore, setDecryptedStore] = useState(false);
     const handleChange = (event) => setValue(event.target.value);
-    const { post, response, loading } = useFetch(`/${id}`);
+    const { post, response, loading } = useFetch('/');
     let outputData = undefined;
 
     const submit = async () => {
@@ -16,32 +17,36 @@ const StoreView = ({ isOpen, id }) => {
         }
 
         const data = await post({
-            key: value,
+            name: value,
+            data: {},
         });
 
         if (!response.ok) {
+            toast({
+                title: 'An error occurred.',
+                description: 'Unable to delete store.',
+                status: 'error',
+                duration: 2000,
+            });
+
             return setIsInvalid(true);
         }
 
-        // TODO: manage if key invalid
-
-        outputData = JSON.stringify(await data.data, null, 2);
-        console.log(outputData);
+        outputData = await data.data;
     };
 
     return (
-        <StoreViewUI
-            id={id}
-            storeKey={value}
+        <NavbarCreateUI
             isOpen={isOpen}
-            decryptedStore={outputData}
+            onToggle={onToggle}
             valueInput={value}
             onChangeInput={handleChange}
             isInvalidInput={isInvalid}
             isLoadingSubmit={loading}
             onClickSubmit={submit}
+            outputData={outputData}
         />
     );
 };
 
-export default StoreView;
+export default NavbarCreate;

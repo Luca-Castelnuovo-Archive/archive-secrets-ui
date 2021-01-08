@@ -6,11 +6,11 @@ import FetchProvider from 'utils/FetchProvider';
 // maybe by checking if provider api_key is set
 
 const Dashboard = () => (
-    <DashboardLayout>
-        <FetchProvider>
+    <FetchProvider>
+        <DashboardLayout>
             <Stores />
-        </FetchProvider>
-    </DashboardLayout>
+        </DashboardLayout>
+    </FetchProvider>
 );
 
 export default Dashboard;

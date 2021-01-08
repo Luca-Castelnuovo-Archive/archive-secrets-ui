@@ -14,6 +14,7 @@ const StoreViewUpdate = ({
                 value={valueTextarea}
                 onChange={onChangeTextarea}
                 isInvalid={isInvalidTextarea}
+                rows={10}
             />
         </FormControl>
 

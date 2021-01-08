@@ -1,33 +1,39 @@
-import { Flex, Spacer } from '@chakra-ui/react';
-import NavbarItem from './NavbarItem';
+import { Flex, Spacer, useDisclosure } from '@chakra-ui/react';
+import NavbarCreate from 'components/sections/Navbar/NavbarCreate';
+import NavbarLink from './NavbarLink';
+import NavbarBtn from './NavbarBtn';
 
-const Navbar = () => (
-    <Flex as="nav" mb={8}>
-        {/* When on movile flex the entries below each other */}
+const Navbar = () => {
+    const { isOpen, onToggle } = useDisclosure();
 
-        <NavbarItem
-            to="/create_store"
-            variant="solid"
-            colorScheme="teal"
-            borderWidth={1}
-            boxShadow="lg"
-        >
-            {/* TODO: https://chakra-ui.com/docs/overlay/drawer#focus-on-specific-element */}
-            Create Store
-        </NavbarItem>
+    return (
+        <Flex as="nav" mb={8}>
+            {/* TODO: When on movile flex the entries below each other */}
 
-        <Spacer />
+            <NavbarBtn
+                onClick={onToggle}
+                variant="solid"
+                colorScheme="teal"
+                borderWidth={1}
+                boxShadow="lg"
+            >
+                Create Store
+            </NavbarBtn>
+            <NavbarCreate isOpen={isOpen} onToggle={onToggle} />
 
-        <NavbarItem to="/docs" variant="outline" colorScheme="teal">
-            Documentation
-        </NavbarItem>
+            <Spacer />
 
-        <Spacer />
+            <NavbarLink to="/docs" variant="outline" colorScheme="teal">
+                Documentation
+            </NavbarLink>
 
-        <NavbarItem isLast to="/" variant="outline" colorScheme="teal">
-            Logout
-        </NavbarItem>
-    </Flex>
-);
+            <Spacer />
+
+            <NavbarLink isLast to="/" variant="outline" colorScheme="teal">
+                Logout
+            </NavbarLink>
+        </Flex>
+    );
+};
 
 export default Navbar;

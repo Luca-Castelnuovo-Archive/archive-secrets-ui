@@ -11,7 +11,7 @@ import StoreViewUpdate from 'components/sections/Stores/StoreViewUpdate';
 const StoreView = ({
     id,
     storeKey,
-    viewOpen,
+    isOpen,
     decryptedStore,
     valueInput,
     onChangeInput,
@@ -19,7 +19,7 @@ const StoreView = ({
     isLoadingSubmit,
     onClickSubmit,
 }) => (
-    <Collapse in={viewOpen} animateOpacity>
+    <Collapse in={isOpen} animateOpacity>
         <Box p="20px" mt={4}>
             {!decryptedStore && (
                 <>

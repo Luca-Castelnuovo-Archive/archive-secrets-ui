@@ -38,6 +38,8 @@ const Store = ({ id, name, loading, deleteStore }) => {
                 </Button>
             </ButtonGroup>
 
+            <StoreView isOpen={isOpen} id={id} />
+
             <AlertDialog
                 isOpen={deleteOpen}
                 leastDestructiveRef={cancelRef}
@@ -73,8 +75,6 @@ const Store = ({ id, name, loading, deleteStore }) => {
                     </AlertDialogContent>
                 </AlertDialogOverlay>
             </AlertDialog>
-
-            <StoreView viewOpen={isOpen} id={id} />
         </Box>
     );
 };
